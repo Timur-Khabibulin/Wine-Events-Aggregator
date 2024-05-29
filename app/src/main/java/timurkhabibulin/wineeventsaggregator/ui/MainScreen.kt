@@ -11,10 +11,13 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.HorizontalDivider
@@ -32,6 +35,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -162,34 +166,53 @@ class MainScreen {
                         verticalArrangement = Arrangement.spacedBy(2.dp),
                         horizontalAlignment = Alignment.Start
                     ) {
-                        Text(
-                            text = "Адрес: ${event.name}",
-                            style = MaterialTheme.typography.bodyMedium,
-                            color = Color.Black
+                        TextParameter(
+                            name = stringResource(R.string.address),
+                            value = event.address
                         )
-                        Text(
-                            text = "Время: ${event.address}",
-                            style = MaterialTheme.typography.bodyMedium,
-                            color = Color.Black
+                        TextParameter(
+                            name = stringResource(R.string.time),
+                            value = event.time
                         )
-                        Text(
-                            text = "Продолжительность: ${event.duration}",
-                            style = MaterialTheme.typography.bodyMedium,
-                            color = Color.Black
+                        TextParameter(
+                            name = stringResource(R.string.duration),
+                            value = event.duration
                         )
                     }
                     Box(
                         modifier = Modifier.fillMaxWidth(),
                         contentAlignment = Alignment.CenterEnd
                     ) {
-                        Text(
-                            text = "Цена: ${event.price}",
-                            style = MaterialTheme.typography.bodyMedium,
-                            color = Color.Black
+                        TextParameter(
+                            name = stringResource(R.string.price),
+                            value = event.price
                         )
                     }
                     HorizontalDivider()
                 }
+            }
+        }
+
+        @Composable
+        private fun TextParameter(
+            name: String,
+            value: String,
+            modifier: Modifier = Modifier
+        ) {
+            Row(
+                modifier = modifier,
+                horizontalArrangement = Arrangement.spacedBy(4.dp)
+            ) {
+                Text(
+                    text = name,
+                    style = MaterialTheme.typography.bodyMedium,
+                    color = Color.DarkGray
+                )
+                Text(
+                    text = value,
+                    style = MaterialTheme.typography.bodyMedium,
+                    color = Color.Black
+                )
             }
         }
 
@@ -211,18 +234,11 @@ class MainScreen {
                 placeholder = {
                     Text(
                         modifier = Modifier.padding(start = 20.dp),
-                        text = "Поиск по названию",
+                        text = stringResource(R.string.find_by_name),
                         style = MaterialTheme.typography.titleSmall
                     )
                 },
                 shape = RoundedCornerShape(50.dp),
-//                trailingIcon = {
-//                    Icon(
-//                        modifier = Modifier.clickable { onStartSearch(query) },
-//                        painter = painterResource(id = R.drawable.search),
-//                        contentDescription = ""
-//                    )
-//                },
                 maxLines = 1,
                 keyboardActions = KeyboardActions(onSearch = {
                     onStartSearch(query)
@@ -250,30 +266,40 @@ class MainScreen {
                         .padding(16.dp),
                     verticalArrangement = Arrangement.spacedBy(10.dp)
                 ) {
-                    EventCard(
-                        event = event,
-                        onEventClick = {}
-                    )
-                    Text(
-                        text = "Описание",
-                        style = MaterialTheme.typography.titleMedium,
-                        color = Color.Black
-                    )
-                    HorizontalDivider()
-                    Text(
-                        text = event.description,
-                        style = MaterialTheme.typography.bodyMedium,
-                        color = Color.Black
-                    )
+                    Column(
+                        modifier = Modifier
+                            .weight(1f),
+                        verticalArrangement = Arrangement.spacedBy(10.dp)
+                    ) {
+                        EventCard(
+                            event = event,
+                            onEventClick = {}
+                        )
+                        Text(
+                            text = stringResource(R.string.description),
+                            style = MaterialTheme.typography.titleMedium,
+                            color = Color.Black
+                        )
+                        HorizontalDivider()
+                        Text(
+                            modifier = Modifier.verticalScroll(rememberScrollState()),
+                            text = event.description,
+                            style = MaterialTheme.typography.bodyMedium,
+                            color = Color.Black
+                        )
+                    }
                     Button(
                         modifier = Modifier
-                            .size(width = 336.dp, height = 50.dp),
+                            .size(
+                                width = 336.dp,
+                                height = 50.dp
+                            ),
                         onClick = { signUpToEvent(event) },
                         shape = RoundedCornerShape(100.dp),
                         colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFBA1B1B))
                     ) {
                         Text(
-                            text = "Записаться",
+                            text = stringResource(R.string.sign_up),
                             color = Color.White
                         )
                     }

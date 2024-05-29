@@ -1,3 +1,13 @@
 <resources>
     <string name="app_name">Wine-Events-Aggregator</string>
+    <string name="address">Адрес:</string>
+    <string name="time">Время:</string>
+    <string name="duration">Продолжительность:</string>
+    <string name="price">Цена:</string>
+    <string name="find_by_name">Поиск по названию</string>
+    <string name="description">Описание</string>
+    <string name="sign_up">Записаться</string>
+    <string name="main">Главная</string>
+    <string name="archive">Архив</string>
+    <string name="profile">Профиль</string>
 </resources>

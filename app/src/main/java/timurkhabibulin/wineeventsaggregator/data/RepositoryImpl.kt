@@ -11,6 +11,7 @@ class RepositoryImpl @Inject constructor() : Repository {
         withContext(Dispatchers.IO) {
             return@withContext Result.success(
                 listOf(
+                    Event.Default,
                     Event(
                         name = "Название",
                         address = "г.Екатеринбург, ул Народной Воли 115",
