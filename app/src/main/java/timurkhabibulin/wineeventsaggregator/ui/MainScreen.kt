@@ -44,7 +44,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import timurkhabibulin.wineeventsaggregator.R
 import timurkhabibulin.wineeventsaggregator.domain.Event
 
-class MainScreen {
+sealed class MainScreen {
 
     @Preview(
         showSystemUi = true

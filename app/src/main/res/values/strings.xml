@@ -10,4 +10,11 @@
     <string name="main">Главная</string>
     <string name="archive">Архив</string>
     <string name="profile">Профиль</string>
+    <string name="change_email">Сменить адрес почты</string>
+    <string name="change_name">Сменить имя</string>
+    <string name="chnage_surname">Сменить фамилию</string>
+    <string name="current_email">Нынешний адрес почты</string>
+    <string name="name">Имя</string>
+    <string name="surname">Фамилия</string>
+    <string name="save">Сохранить</string>
 </resources>

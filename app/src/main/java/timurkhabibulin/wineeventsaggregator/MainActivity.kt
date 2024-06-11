@@ -23,6 +23,7 @@ import androidx.compose.material3.ModalNavigationDrawer
 import androidx.compose.material3.NavigationDrawerItem
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.material3.rememberDrawerState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -39,6 +40,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import timurkhabibulin.wineeventsaggregator.ui.MainScreen
 import timurkhabibulin.wineeventsaggregator.ui.NavigationItem
+import timurkhabibulin.wineeventsaggregator.ui.ProfileScreen
 import timurkhabibulin.wineeventsaggregator.ui.theme.WineEventsAggregatorTheme
 
 @AndroidEntryPoint
@@ -61,15 +63,18 @@ class MainActivity : ComponentActivity() {
         val items = listOf(
             NavigationItem(
                 title = stringResource(R.string.main),
-                icon = Icons.Default.Home
+                icon = Icons.Default.Home,
+                Color.Black
             ),
             NavigationItem(
                 title = stringResource(R.string.archive),
-                icon = Icons.Default.DateRange
+                icon = Icons.Default.DateRange,
+                Color.Black
             ),
             NavigationItem(
                 title = stringResource(R.string.profile),
-                icon = Icons.Default.AccountCircle
+                icon = Icons.Default.AccountCircle,
+                Color.White
             )
         )
         var selectedItemIndex by rememberSaveable {
@@ -117,7 +122,7 @@ class MainActivity : ComponentActivity() {
                             Text(
                                 text = items[selectedItemIndex].title,
                                 style = MaterialTheme.typography.titleLarge,
-                                color = Color.Black
+                                color = if (selectedItemIndex == 2) Color.White else Color.Black
                             )
                         },
                         navigationIcon = {
@@ -131,7 +136,12 @@ class MainActivity : ComponentActivity() {
                                     contentDescription = "Menu"
                                 )
                             }
-                        }
+                        },
+                        colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
+                            containerColor = if (selectedItemIndex == 2)
+                                Color(0xFFBA1B1B)
+                            else Color.White
+                        )
                     )
                 }
             ) { paddingValues ->
@@ -144,6 +154,12 @@ class MainActivity : ComponentActivity() {
 
                     1 -> {
                         MainScreen.MainScreen(
+                            modifier = Modifier.padding(paddingValues)
+                        )
+                    }
+
+                    2 -> {
+                        ProfileScreen.ProfileScreen(
                             modifier = Modifier.padding(paddingValues)
                         )
                     }
